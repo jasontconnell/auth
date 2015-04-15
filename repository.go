@@ -14,7 +14,7 @@ type UserRepository struct {
 
 func NewUserRepository(config repository.Configuration) *UserRepository {
 	repo := new(UserRepository)
-	repo.Initialize(config.DatabaseServer, config.Database, config.DatabaseUser, config.DatabasePassword)
+	repo.Initialize(config)
 	return repo
 }
 
