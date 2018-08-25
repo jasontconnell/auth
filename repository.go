@@ -1,11 +1,11 @@
-package shared
+package auth
 
 import (
-	"repository"
-	"shared/data"
-	"gopkg.in/mgo.v2/bson"
 	"errors"
-	"crypt"
+	"github.com/jasontconnell/crypt"
+	"github.com/jasontconnell/repository"
+	"gopkg.in/mgo.v2/bson"
+	"shared/data"
 )
 
 type UserRepository struct {
@@ -18,12 +18,12 @@ func NewUserRepository(config repository.Configuration) *UserRepository {
 	return repo
 }
 
-func (repo *UserRepository) LoginUser(username, password string) (*data.User,error) {
+func (repo *UserRepository) LoginUser(username, password string) (*data.User, error) {
 	key := "random array of characters"
 	collection := repo.OpenCollection("users")
 	user := data.User{}
-		
-	if err := collection.Find(bson.M{ "username": username }).One(&user); err == nil {
+
+	if err := collection.Find(bson.M{"username": username}).One(&user); err == nil {
 		decrypted := crypt.Decrypt(key, user.Password)
 		if password != decrypted {
 			return nil, errors.New("Invalid credentials")
