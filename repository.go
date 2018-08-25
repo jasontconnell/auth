@@ -2,10 +2,10 @@ package auth
 
 import (
 	"errors"
+	"github.com/jasontconnell/auth/data"
 	"github.com/jasontconnell/crypt"
 	"github.com/jasontconnell/repository"
 	"gopkg.in/mgo.v2/bson"
-	"shared/data"
 )
 
 type UserRepository struct {
